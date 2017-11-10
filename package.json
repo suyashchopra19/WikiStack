@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"nodemon app.js"
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,9 @@
     "morgan": "^1.9.0",
     "nodemon": "^1.12.1",
     "nunjucks": "^3.0.1",
+    "pg": "^7.4.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.22.6",
     "socket.io": "^2.0.4"
   }
 }

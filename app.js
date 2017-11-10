@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const socketio = require('socket.io');
 const path = require ('path');
 const routes = require('./routes')
+const models = require('./models')
 
 app.engine('html',nunjucks.render);
 app.set('view engine','html'); 
@@ -17,9 +18,19 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname,'/pubic')));
 
-const server = app.listen(3000, function(){
-	console.log("Listening at 3000")
-});
+
+
+
+models.User.sync({})
+    .then(function() {
+        return models.Page.sync({})
+    })
+    .then(function() {
+        const server = app.listen(3000, function() {
+            console.log("Listening at 3000")
+        });
+    })
+    .catch(console.error);
 
 app.use('/',routes())
 
