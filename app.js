@@ -16,21 +16,18 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
-app.use(express.static(path.join(__dirname,'/pubic')));
+app.use(express.static(path.join(__dirname,'/public/')));
 
 
-
-
-models.User.sync({})
-    .then(function() {
-        return models.Page.sync({})
-    })
-    .then(function() {
-        const server = app.listen(3000, function() {
+// make sure you are exporting your db from your models file
+models.db.sync({force: true}) // this drops all tables then recreates them based on our JS definitions
+.then(function () {
+    // make sure to replace the name below with your express app
+    const server = app.listen(3000, function() {
             console.log("Listening at 3000")
-        });
-    })
-    .catch(console.error);
+    });
+})
+.catch(console.error);
 
-app.use('/',routes())
+app.use('/',routes);
 
